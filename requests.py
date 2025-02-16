@@ -22,40 +22,29 @@ class MySQLRequest:
 
 class PullData(MySQLRequest):
     """
-    Pulls all data from a table using the query: SELECT * FROM {table};
+    Pulls all data from a table using a query
     """
-    def __init__(self, table_name):
-        super().__init__(table_name)
+    def __init__(self):
+        #Implement
 
     def get_query(self):
-        """
-        Returns the SQL query to pull all data from the table.
-        """
-        return f"SELECT * FROM {self.table_name};"
+        #Implement
 
     def get_description(self):
-        """
-        Returns a description of what the action does.
-        """
-        return f"Pulls all rows and columns from the '{self.table_name}' table."
+        #Implement
 
 class InsertData(MySQLRequest):
     """
     Inserts a single row of data into a table.
     """
-    def __init__(self, table_name, columns, values):
-        super().__init__(table_name)
-        self.columns = columns
-        self.values = values
+    def __init__(self):
+        #Implement
 
     def get_query(self):
-        return f"""
-        INSERT INTO {self.table_name} ({', '.join(self.columns)})
-        VALUES ({', '.join(['%s'] * len(self.values))});
-        """
+        #Implement
 
     def get_description(self):
-        return f"Inserts a single row into the '{self.table_name}' table with the specified columns and values."
+        #Implement
 
 class InsertMultipleRows(MySQLRequest):
     """
