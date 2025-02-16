@@ -19,19 +19,22 @@ class MySQLRequest:
         Must be implemented by child classes.
         """
         raise NotImplementedError("Child classes must implement the `get_description` method.")
-
+# hello
 class PullData(MySQLRequest):
     """
     Pulls all data from a table using a query
     """
     def __init__(self):
         #Implement
+        
 
     def get_query(self):
         #Implement
+        
 
     def get_description(self):
         #Implement
+        
 
 class InsertData(MySQLRequest):
     """
