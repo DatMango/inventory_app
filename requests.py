@@ -26,15 +26,15 @@ class PullData(MySQLRequest):
     """
     def __init__(self):
         #Implement
-        
+        super().__init__(table_name=self.table_name)
 
     def get_query(self):
         #Implement
-        
+        return f"""SELECT * FROM {self.table_name}"""
 
     def get_description(self):
         #Implement
-        
+        return f"""Pulled all data from {self.table_name}"""
 
 class InsertData(MySQLRequest):
     """
@@ -42,12 +42,15 @@ class InsertData(MySQLRequest):
     """
     def __init__(self):
         #Implement
+        super().__init__(table_name=self.table_name)
 
     def get_query(self):
         #Implement
+        return f"""SELECT * FROM {self.table_name}"""
 
     def get_description(self):
         #Implement
+        return f"""Pulled all data from {self.table_name}"""
 
 class InsertMultipleRows(MySQLRequest):
     """
