@@ -9,7 +9,7 @@ os.chdir(script_dir)
 sys.path.append(script_dir)
 
 from server import connection
-from requests import PullData, InsertData
+from requests import PullData, InsertData, UpdateData
 
 #table name is inventory for some Godforsaken reason
 #fire whoever did that
@@ -75,6 +75,8 @@ def home_page(layout, db_value, host_value, port_value, user_value, password_val
             except Exception as e:
                 print(f"Error saving changes: {e}")
         save_button.on_click(save_changes)
+
+
         insert_form = pn.Column(
             pn.widgets.TextInput(name="Hash Key", placeholder="Enter hash key..."),
             pn.widgets.TextInput(name="Item", placeholder="Enter item name..."),
@@ -107,6 +109,43 @@ def home_page(layout, db_value, host_value, port_value, user_value, password_val
             except Exception as e:
                 print(f"Error inserting data: {e}")
         insert_form[-1].on_click(insert_data)
+
+
+        # l = [pn.Row(pn.widgets.TextInput(name=str(c), placeholder=str(c)+" condition"), pn.widgets.Checkbox(name=str(c)+' checkbox')) for c in df.columns]
+        def col_update_creation(column_names_df):
+            l = []
+            for column_name in column_names_df:
+                row = pn.Row(
+                    pn.widgets.TextInput(name=str(column_name), placeholder=str(column_name)+" condition"),
+                    pn.widgets.CheckButtonGroup(name=str(column_name)+' checkboxes', options=['Condition','Update'])
+                )
+                l.append(row)
+            l.append(pn.widgets.Button(name="Update Data", button_type="success"))
+            return pn.Column(*l) # *args because need to remove the single "list" such that it can function as pn
+        
+        update_form = col_update_creation(df.columns)
+
+        # Unfinished backend code, cannot connect just yet: template below
+        def update_data(event):
+            try:
+                conditions = {} # 
+                updates = {}
+                for row in update_form[:-1]:
+                    textinput = row[0]
+                    checkbox = row[1]
+                    if 'Update' in checkbox.value:
+                        updates[textinput.name] = textinput.value
+                    if 'Condition' in checkbox.value:
+                        conditions[textinput.name] = textinput.value
+                
+                # history_log.value += f"Updates: {updates}"
+
+                print("Updated user_df")
+            except Exception as e:
+                print(f"Error updating data: {e}")
+        update_form[-1].on_click(update_data)
+
+
         changed_layout = pn.Column(
             pn.Row(df_panel, user_df_pane),
             save_button,
