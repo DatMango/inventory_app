@@ -10,7 +10,8 @@ class MySQLRequest:
         """
         Returns the MySQL query as a string.
         Must be implemented by child classes.
-        """
+        """ 
+
         raise NotImplementedError("Child classes must implement the `get_query` method.")
 
     def get_description(self):
@@ -20,37 +21,40 @@ class MySQLRequest:
         """
         raise NotImplementedError("Child classes must implement the `get_description` method.")
 # hello world
+
 class PullData(MySQLRequest):
     """
     Pulls all data from a table using a query
     """
+    
     def __init__(self):
-        #Implement
-        super().__init__(table_name=self.table_name)
+        super.__init__(table_name)
 
     def get_query(self):
-        #Implement
-        return f"""SELECT * FROM {self.table_name}"""
+        return f"SELECT * FROM {self.table_name};"
+
 
     def get_description(self):
-        #Implement
-        return f"""Pulled all data from {self.table_name}"""
+        return "Retrieves all the data from" + f"{self.table_name} table"
 
 class InsertData(MySQLRequest):
     """
     Inserts a single row of data into a table.
     """
-    def __init__(self):
-        #Implement
-        super().__init__(table_name=self.table_name)
+    
+    def __init__(self, table_name, columns, values):
+
+        super().__init__(table_name)
+        self.columns = columns
+        self.values = values
 
     def get_query(self):
-        #Implement
-        return f"""SELECT * FROM {self.table_name}"""
+        
+        return f"INSERT INTO {self.table_name} ({', '.join(self.columns)}) VALUES ({', '.join(self.values)});"
 
     def get_description(self):
-        #Implement
-        return f"""Pulled all data from {self.table_name}"""
+   
+        return f"Inserts a single row of data into {self.tablename} table with the given column {self.column} and value {self.values}"
 
 class InsertMultipleRows(MySQLRequest):
     """
