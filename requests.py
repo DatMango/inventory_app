@@ -21,16 +21,16 @@ class MySQLRequest:
         """
         raise NotImplementedError("Child classes must implement the `get_description` method.")
 # hello world
+
 class PullData(MySQLRequest):
     """
     Pulls all data from a table using a query
     """
+    
     def __init__(self):
-
         super.__init__(table_name)
 
     def get_query(self):
-        
         return f"SELECT * FROM {self.table_name};"
 
 
@@ -41,6 +41,7 @@ class InsertData(MySQLRequest):
     """
     Inserts a single row of data into a table.
     """
+    
     def __init__(self, table_name, columns, values):
 
         super().__init__(table_name)
