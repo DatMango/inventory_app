@@ -149,18 +149,23 @@ class FilterDataWithWhere(MySQLRequest):
     """
     Selects rows from a table based on a condition.
     """
-    def __init__(self, table_name, condition):
+    def __init__(self, table_name, condition,column=None):
         super().__init__(table_name)
         self.condition = condition
+        self.column = column or ["*"]
+
 
     def get_query(self):
+
+        where = " AND ".join(self.condition)
+        columns = ", ".join(self.column)
         return f"""
-        SELECT * FROM {self.table_name}
-        WHERE {self.condition};
+        SELECT {columns} FROM {self.table_name}
+        WHERE {where};
         """
 
     def get_description(self):
-        return f"Selects rows from the '{self.table_name}' table where the condition '{self.condition}' is met."
+        return f"Selects {columns} from the '{self.table_name}' table where the condition '{self.condition}' is met."
 
 
 class SortDataWithOrderBy(MySQLRequest):
